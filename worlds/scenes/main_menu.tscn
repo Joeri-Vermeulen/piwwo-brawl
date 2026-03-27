@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://ci7j52uh1s4a"]
+
+[ext_resource type="Script" uid="uid://ddsfb0jx4po6f" path="res://worlds/scripts/main_menu.gd" id="1_8ch1q"]
+
+[node name="MainMenu" type="Control" unique_id=482476089]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ch1q")
+initial_scene = &"uid://by8lkkuqwj2ww"
+
+[node name="Button" type="Button" parent="." unique_id=657263240]
+layout_mode = 0
+offset_left = 468.0
+offset_top = 310.0
+offset_right = 712.0
+offset_bottom = 419.0
+theme_override_font_sizes/font_size = 48
+text = "Start"
+
+[connection signal="button_down" from="Button" to="." method="start_game"]

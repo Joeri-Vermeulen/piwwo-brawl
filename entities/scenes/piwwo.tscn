@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://brdr5y8xt42cr"]
+
+[ext_resource type="Script" uid="uid://r1g6aofxiua6" path="res://entities/scripts/piwwo.gd" id="1_4rc2a"]
+[ext_resource type="Texture2D" uid="uid://bsasoot0wvgl4" path="res://assets/icon.svg" id="2_0xu7h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ly88s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0xu7h")
+}],
+"loop": true,
+"name": &"base",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3n15i"]
+
+[node name="Piwwo" type="CharacterBody2D" unique_id=365172196]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_4rc2a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2118301241]
+sprite_frames = SubResource("SpriteFrames_ly88s")
+animation = &"base"
+autoplay = "base"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1816145952]
+shape = SubResource("CircleShape2D_3n15i")

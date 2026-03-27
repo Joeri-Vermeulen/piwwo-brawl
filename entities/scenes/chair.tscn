@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://btpdya1lp4ntr"]
+
+[ext_resource type="Script" uid="uid://dt5gsim1385yi" path="res://entities/scripts/chair.gd" id="1_v5xil"]
+[ext_resource type="Texture2D" uid="uid://bkrp4r08c7jid" path="res://assets/piwwos/chair/chair-idle.png" id="2_fiw7g"]
+[ext_resource type="Texture2D" uid="uid://3l3stgrfq0lf" path="res://assets/piwwos/chair/chair-base.png" id="2_qiknn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n15i"]
+atlas = ExtResource("2_fiw7g")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyohi"]
+atlas = ExtResource("2_fiw7g")
+region = Rect2(500, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpmpt"]
+atlas = ExtResource("2_fiw7g")
+region = Rect2(1000, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nds0"]
+atlas = ExtResource("2_fiw7g")
+region = Rect2(1500, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nxnc"]
+atlas = ExtResource("2_fiw7g")
+region = Rect2(0, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k6fm"]
+atlas = ExtResource("2_fiw7g")
+region = Rect2(500, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mbpu"]
+atlas = ExtResource("2_fiw7g")
+region = Rect2(1000, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyl56"]
+atlas = ExtResource("2_fiw7g")
+region = Rect2(1500, 500, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gela0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qiknn")
+}],
+"loop": true,
+"name": &"base",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3n15i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyohi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpmpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5nds0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nxnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k6fm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mbpu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyl56")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ojpxm"]
+radius = 176.66666
+height = 446.66666
+
+[node name="Chair" type="CharacterBody2D" unique_id=1706251030]
+scale = Vector2(0.3, 0.3)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_v5xil")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1574313812]
+sprite_frames = SubResource("SpriteFrames_gela0")
+animation = &"base"
+autoplay = "base"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1982039159]
+position = Vector2(0, 10)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ojpxm")

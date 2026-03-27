@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://by8lkkuqwj2ww"]
+
+[ext_resource type="Script" uid="uid://shwhtf0aeban" path="res://worlds/scripts/game.gd" id="1_hv3oy"]
+[ext_resource type="Texture2D" uid="uid://cdwt1ns1coaal" path="res://assets/white.png" id="2_0lnis"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_aidcu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jm8sr"]
+normal = Vector2(0, 1)
+
+[node name="TestingGrounds" type="Node2D" unique_id=1337842064]
+script = ExtResource("1_hv3oy")
+
+[node name="Bounds" type="StaticBody2D" parent="." unique_id=1546738593]
+
+[node name="Floor" type="CollisionShape2D" parent="Bounds" unique_id=1673946188]
+position = Vector2(0, 620)
+shape = SubResource("WorldBoundaryShape2D_aidcu")
+
+[node name="White" type="Sprite2D" parent="Bounds/Floor" unique_id=699510962]
+position = Vector2(568, 50)
+scale = Vector2(12.36, 1)
+texture = ExtResource("2_0lnis")
+
+[node name="Ceiling" type="CollisionShape2D" parent="Bounds" unique_id=987137855]
+position = Vector2(0, -30)
+shape = SubResource("WorldBoundaryShape2D_jm8sr")
