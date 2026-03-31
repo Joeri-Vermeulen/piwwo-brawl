@@ -2,21 +2,78 @@
 
 [ext_resource type="Script" uid="uid://35ub0ykl2ume" path="res://entities/scripts/ordinary.gd" id="1_37ouy"]
 [ext_resource type="Texture2D" uid="uid://w6rkc8mnvfv6" path="res://assets/piwwos/ordinary/ordinary-base.png" id="1_p03eh"]
+[ext_resource type="Texture2D" uid="uid://dnltevq8d8old" path="res://assets/piwwos/ordinary/ordinary-base-alt.png" id="2_py5c3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_37ouy"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_py5c3")
+}],
+"loop": true,
+"name": &"base-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("1_p03eh")
 }],
 "loop": true,
-"name": &"base",
+"name": &"base-right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_py5c3")
+}],
+"loop": true,
+"name": &"idle-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p03eh")
+}],
+"loop": true,
+"name": &"idle-right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_py5c3")
+}],
+"loop": true,
+"name": &"jump-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p03eh")
+}],
+"loop": true,
+"name": &"jump-right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_py5c3")
+}],
+"loop": true,
+"name": &"move-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p03eh")
+}],
+"loop": true,
+"name": &"move-right",
 "speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_py5c3"]
 radius = 150.0
-height = 386.66666
+height = 350.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1099173651]
 scale = Vector2(0.3, 0.3)
@@ -26,9 +83,9 @@ script = ExtResource("1_37ouy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=360668732]
 sprite_frames = SubResource("SpriteFrames_37ouy")
-animation = &"base"
-autoplay = "base"
+animation = &"base-right"
+autoplay = "base-right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1227036563]
-position = Vector2(0, 60)
+position = Vector2(0, 56)
 shape = SubResource("CapsuleShape2D_py5c3")

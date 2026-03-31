@@ -16,4 +16,9 @@ const PIWWOS: Dictionary = {
 		"assigned_name": "Chair",
 		"scene_path": "uid://btpdya1lp4ntr",
 	},
+	
+	"Ordinary": {
+		"assigned_name": "Ordinary",
+		"scene_path": "uid://bb7ah28yxbp4b",
+	}
 }
