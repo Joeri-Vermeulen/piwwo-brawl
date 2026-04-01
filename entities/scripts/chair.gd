@@ -9,9 +9,13 @@ const DEFAULT_DIRECTION = "left"
 @onready var _animated_sprite = $AnimatedSprite2D
 var action = "idle" # animation: idle by default
 var facing = DEFAULT_DIRECTION
+var peeking = null
 var is_in_cutscene = false
+var is_moving = false
+var is_attacking = false
 var is_jumping = false
-var is_falling = false
+func is_falling() -> bool: return (not is_jumping) and (not is_on_floor())
+func curr_anim() -> String: return _animated_sprite.animation
 
 
 # ==== On Instantiate ====
@@ -24,10 +28,9 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		is_falling = not is_jumping
-	elif is_on_floor() and (is_jumping or is_falling):
+		if is_falling(): action = "fall"
+	elif is_on_floor():
 		is_jumping = false
-		is_falling = false
 	
 	if not is_in_cutscene:
 		# Get the input direction and handle the movement/deceleration.
@@ -36,10 +39,19 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction * SPEED
 			if direction < 0: facing = "left"
 			elif direction > 0: facing = "right"
-			action = "jump" if is_jumping else "fall" if is_falling else "move"
+			action = action if is_attacking or is_jumping or is_falling() else "move"
+			is_moving = true
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
-			action = "jump" if is_jumping else "fall" if is_falling else "idle"
+			action = action if is_attacking or is_jumping or is_falling() else "idle"
+			is_moving = false
+		
+		# Get the input peeking direction and handle peeking/swinging.
+		var peek_direction := Input.get_axis("down", "up")
+		if peek_direction:
+			if peek_direction < 0: peeking = "down"
+			elif peek_direction > 0: peeking = "up"
+		else: peeking = null
 		
 		# Handle jump.
 		if Input.is_action_pressed("jump") and is_on_floor():
@@ -47,28 +59,44 @@ func _physics_process(delta: float) -> void:
 			is_jumping = true
 			action = "jump"
 		
-		if anim(action):
-			pass
+		# Handle attack.
+		if Input.is_action_pressed("attack"):
+			if not is_attacking: attack()
+		
+		if not is_attacking:
+			anim(action)
 		move_and_slide()
 
 
 # ==== Assisting Functions ====
-#
+func attack() -> bool:
+	is_attacking = true
+	anim("attack")
+	return true
 
 
 # ====== Animation Functions ======
 func anim(forced_action:String=action, forced_direction:String=facing) -> bool:
-	face(forced_direction) if forced_direction != facing else null
+	if forced_direction != facing: face(forced_direction)
 	var anim_name = forced_action.to_lower()
-	if _animated_sprite.animation != anim_name:
+	
+	if peeking and anim_name in ["idle", "attack"]: # Input = up or down
+		if peeking.to_lower() == "down" and is_attacking and is_on_floor():
+			anim_name += "_sweep"
+		else:
+			anim_name += '_' + peeking.to_lower() + ("_side" if is_moving else '')
+		
+	
+	if curr_anim() != anim_name:
 		_animated_sprite.play(anim_name)
+		#print("Now animating: " + anim_name)
+	
 	_animated_sprite.flip_h = facing != DEFAULT_DIRECTION
 	return true
 
-func jump_to_fall() -> void:
-	if is_jumping:
-		is_jumping = false
-		#is_falling = true # happens automatically in _physics_process
+func handle_anim_end() -> void: # actions like attack and jump that don't loop
+	if is_jumping: is_jumping = false
+	if is_attacking: is_attacking = false
 
 # ==== Cutscene Functions ====
 func flip() -> bool:
